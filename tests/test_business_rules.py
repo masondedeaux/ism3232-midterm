@@ -2,6 +2,8 @@ from business_rules import (
     calculate_event_total,
     calculate_food_cost,
     get_event_discount,
+    needs_second_chef,
+    needs_signoff,
 )
 
 
@@ -40,3 +42,27 @@ def test_service_fee_at_500():
 
 def test_no_service_fee_above_500():
     assert round(calculate_event_total(500.01, 1), 2) == 500.01
+
+
+def test_no_signoff_at_2500():
+    assert needs_signoff(2500.00) is False
+
+
+def test_signoff_above_2500():
+    assert needs_signoff(2500.01) is True
+
+
+def test_no_second_chef_at_80_guests():
+    assert needs_second_chef(80, 1000.00) is False
+
+
+def test_second_chef_above_80_guests():
+    assert needs_second_chef(81, 1000.00) is True
+
+
+def test_no_second_chef_below_3000():
+    assert needs_second_chef(50, 2999.99) is False
+
+
+def test_second_chef_at_3000():
+    assert needs_second_chef(50, 3000.00) is True
