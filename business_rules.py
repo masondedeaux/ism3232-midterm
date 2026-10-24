@@ -7,3 +7,8 @@ SERVICE_FEE_LIMIT = 500.00
 SIGNOFF_LIMIT = 2500.00
 SECOND_CHEF_GUEST_LIMIT = 80
 SECOND_CHEF_TOTAL_LIMIT = 3000.00
+
+
+def calculate_food_cost(guest_price: float, guests: int) -> float:
+    """Return the food cost before discounts."""
+    return guest_price * guests
