@@ -54,3 +54,17 @@ def total_booked(events: list) -> float:
             event["guest_price"], event["guests"], event["nonprofit"]
         )
     return total
+
+
+def largest_event(events: list) -> str:
+    """Return the client with the highest event total."""
+    largest_client = ""
+    largest_total = None
+    for event in events:
+        total = calculate_event_total(
+            event["guest_price"], event["guests"], event["nonprofit"]
+        )
+        if largest_total is None or total > largest_total:
+            largest_total = total
+            largest_client = event["client"]
+    return largest_client

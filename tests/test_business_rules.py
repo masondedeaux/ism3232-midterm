@@ -2,6 +2,7 @@ from business_rules import (
     calculate_event_total,
     calculate_food_cost,
     get_event_discount,
+    largest_event,
     needs_second_chef,
     needs_signoff,
     total_booked,
@@ -79,3 +80,24 @@ def test_total_booked_adds_events():
 
 def test_total_booked_empty_list():
     assert round(total_booked([]), 2) == 0.00
+
+
+def test_largest_event_uses_discounted_totals():
+    events = [
+        {"client": "Charity", "guest_price": 10.00, "guests": 100, "nonprofit": True},
+        {"client": "Company", "guest_price": 10.00, "guests": 95, "nonprofit": False},
+    ]
+    assert largest_event(events) == "Company"
+
+
+def test_largest_event_keeps_first_when_tied():
+    events = [
+        {"client": "First", "guest_price": 10.00, "guests": 20, "nonprofit": False},
+        {"client": "Second", "guest_price": 10.00, "guests": 20, "nonprofit": False},
+        {"client": "Small", "guest_price": 10.00, "guests": 10, "nonprofit": False},
+    ]
+    assert largest_event(events) == "First"
+
+
+def test_largest_event_empty_list():
+    assert largest_event([]) == ""
