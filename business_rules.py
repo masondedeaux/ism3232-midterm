@@ -22,3 +22,15 @@ def get_event_discount(guests: int, nonprofit: bool = False) -> float:
     if guests >= NONPROFIT_DISCOUNT_GUESTS and nonprofit:
         discount = NONPROFIT_DISCOUNT
     return discount
+
+
+def calculate_event_total(
+    guest_price: float, guests: int, nonprofit: bool = False
+) -> float:
+    """Return the event total after discounts and any service fee."""
+    food_cost = calculate_food_cost(guest_price, guests)
+    discount = get_event_discount(guests, nonprofit)
+    total = food_cost * (1 - discount)
+    if total <= SERVICE_FEE_LIMIT:
+        total += SERVICE_FEE
+    return total

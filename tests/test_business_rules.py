@@ -1,4 +1,8 @@
-from business_rules import calculate_food_cost, get_event_discount
+from business_rules import (
+    calculate_event_total,
+    calculate_food_cost,
+    get_event_discount,
+)
 
 
 def test_food_cost_regular_event():
@@ -28,3 +32,11 @@ def test_nonprofit_flag_changes_discount():
 
 def test_nonprofit_below_25_has_no_discount():
     assert get_event_discount(24, nonprofit=True) == 0.0
+
+
+def test_service_fee_at_500():
+    assert round(calculate_event_total(25.00, 20), 2) == 575.00
+
+
+def test_no_service_fee_above_500():
+    assert round(calculate_event_total(500.01, 1), 2) == 500.01
