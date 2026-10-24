@@ -4,6 +4,7 @@ from business_rules import (
     get_event_discount,
     needs_second_chef,
     needs_signoff,
+    total_booked,
 )
 
 
@@ -66,3 +67,15 @@ def test_no_second_chef_below_3000():
 
 def test_second_chef_at_3000():
     assert needs_second_chef(50, 3000.00) is True
+
+
+def test_total_booked_adds_events():
+    events = [
+        {"client": "Small", "guest_price": 10.00, "guests": 10, "nonprofit": False},
+        {"client": "Charity", "guest_price": 10.00, "guests": 100, "nonprofit": True},
+    ]
+    assert round(total_booked(events), 2) == 1055.00
+
+
+def test_total_booked_empty_list():
+    assert round(total_booked([]), 2) == 0.00

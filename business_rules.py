@@ -44,3 +44,13 @@ def needs_signoff(total: float) -> bool:
 def needs_second_chef(guests: int, total: float) -> bool:
     """Return whether the event needs a second chef."""
     return guests > SECOND_CHEF_GUEST_LIMIT or total >= SECOND_CHEF_TOTAL_LIMIT
+
+
+def total_booked(events: list) -> float:
+    """Return the combined total for all events."""
+    total = 0.0
+    for event in events:
+        total += calculate_event_total(
+            event["guest_price"], event["guests"], event["nonprofit"]
+        )
+    return total
