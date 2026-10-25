@@ -1,3 +1,10 @@
+from business_rules import (
+    calculate_event_total,
+    format_event_line,
+    needs_second_chef,
+    needs_signoff,
+)
+
 events = [
     {"client": "Finch Law", "guest_price": 18.00, "guests": 20, "nonprofit": False},
     {"client": "Garden Club", "guest_price": 22.00, "guests": 40, "nonprofit": True},
@@ -8,3 +15,12 @@ events = [
     {"client": "Lumen Labs", "guest_price": 15.00, "guests": 81, "nonprofit": False},
     {"client": "Marlow Gala", "guest_price": 70.00, "guests": 50, "nonprofit": True},
 ]
+
+print("Harvest Table Catering - Event Report")
+for event in events:
+    total = calculate_event_total(
+        event["guest_price"], event["guests"], event["nonprofit"]
+    )
+    signoff = needs_signoff(total)
+    second_chef = needs_second_chef(event["guests"], total)
+    print(format_event_line(event["client"], total, signoff, second_chef))
