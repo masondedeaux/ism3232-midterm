@@ -1,8 +1,10 @@
 from business_rules import (
     calculate_event_total,
     format_event_line,
+    largest_event,
     needs_second_chef,
     needs_signoff,
+    total_booked,
 )
 
 events = [
@@ -34,6 +36,12 @@ for event in events:
     if second_chef:
         second_chef_count += 1
 
+booked_total = total_booked(events)
+average = booked_total / event_count
+largest_client = largest_event(events)
 print(f"Events: {event_count}")
+print(f"Total booked: ${booked_total:.2f}")
+print(f"Average event total: ${average:.2f}")
+print(f"Largest event total: {largest_client}")
 print(f"Sign-offs needed: {signoff_count}")
 print(f"Second chefs needed: {second_chef_count}")
