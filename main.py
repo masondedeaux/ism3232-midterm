@@ -16,6 +16,10 @@ events = [
     {"client": "Marlow Gala", "guest_price": 70.00, "guests": 50, "nonprofit": True},
 ]
 
+event_count = 0
+signoff_count = 0
+second_chef_count = 0
+
 print("Harvest Table Catering - Event Report")
 for event in events:
     total = calculate_event_total(
@@ -24,3 +28,12 @@ for event in events:
     signoff = needs_signoff(total)
     second_chef = needs_second_chef(event["guests"], total)
     print(format_event_line(event["client"], total, signoff, second_chef))
+    event_count += 1
+    if signoff:
+        signoff_count += 1
+    if second_chef:
+        second_chef_count += 1
+
+print(f"Events: {event_count}")
+print(f"Sign-offs needed: {signoff_count}")
+print(f"Second chefs needed: {second_chef_count}")
