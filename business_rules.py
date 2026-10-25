@@ -68,3 +68,14 @@ def largest_event(events: list) -> str:
             largest_total = total
             largest_client = event["client"]
     return largest_client
+
+
+def format_event_line(
+    client: str, total: float, signoff: bool, second_chef: bool
+) -> str:
+    """Return one formatted event report line."""
+    signoff_text = "yes" if signoff else "no"
+    chef_text = "yes" if second_chef else "no"
+    return (
+        f"{client}: ${total:.2f} | sign-off: {signoff_text} | second chef: {chef_text}"
+    )

@@ -1,6 +1,7 @@
 from business_rules import (
     calculate_event_total,
     calculate_food_cost,
+    format_event_line,
     get_event_discount,
     largest_event,
     needs_second_chef,
@@ -101,3 +102,18 @@ def test_largest_event_keeps_first_when_tied():
 
 def test_largest_event_empty_list():
     assert largest_event([]) == ""
+
+
+def test_format_event_line_no_flags():
+    line = format_event_line("Finch Law", 435.0, False, False)
+    assert line == "Finch Law: $435.00 | sign-off: no | second chef: no"
+
+
+def test_format_event_line_both_flags():
+    line = format_event_line("Hilltop Gym", 3420.0, True, True)
+    assert line == "Hilltop Gym: $3420.00 | sign-off: yes | second chef: yes"
+
+
+def test_format_event_line_second_chef_only():
+    line = format_event_line("Lumen Labs", 1154.25, False, True)
+    assert line == "Lumen Labs: $1154.25 | sign-off: no | second chef: yes"
