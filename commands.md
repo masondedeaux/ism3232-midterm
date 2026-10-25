@@ -141,3 +141,5 @@ dbc7f16 Add event discount calculation and guest limit tests
 2381d8f Add catering business rule constants
 1d54459 Set up midterm environment and project structure
 ```
+
+There were 15 commits when I recorded this.
